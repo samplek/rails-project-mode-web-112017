@@ -23,7 +23,11 @@ Requirements:
 5. An analytics page - I will show some charting libraries for this in a lecture - so don't worry about displaying this data visually.  The main learning goal of this is to get you to write some interesting activerecord queries.  I will also try to have a review of advanced AR some time this week.
 
 6. No APIs until you get approval from an instructor.  The reason is because API's oftentimes leads you to learning the API really well, but not learning rails that well.  Rails is a more transferable skill.  So try to stick with that. 
-7. 
+
+
+
+### Groups:
+
 Group 1
 David Tsai
 Grace Juster
