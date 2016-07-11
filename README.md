@@ -28,39 +28,3 @@ Requirements:
 
 ### Groups:
 
-Group 1
-David Tsai
-Grace Juster
-Chris Wigington
-
-
-Group 2
-Julie Marin
-Lee Araneta
-Steven McGrath
-Gina Yeon
-
-
-Group 3
-Yichen Yang
-Kellye Greene
-Daniel Berry
-Avram Billig
-
-
-Group 4
-Daniel Gorman
-George Akouri
-David Wexler
-
-
-Group 5
-Jonathan Alexander
-Clark Sacktor
-Laurie Malau 
-
-
-Group 6
-Emanuel Aharonoff
-Todd Rizley
-Chap Long-Lau
