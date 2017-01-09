@@ -1,6 +1,6 @@
 # Rails Project Mode
 
-Congratulations pets_database.db! We are starting project mode. This means that you'll spend the rest of the week working in a team to build out a Rails project of your choice. There will be some lectures and new material scheduled throughout the week, but the bulk of the time will be working on your projects.
+Congratulations, we are starting project mode! This means that you'll spend the rest of the week working in a team to build out a Rails project of your choice. There will be some lectures and new material scheduled throughout the week, but the bulk of the time will be working on your projects.
 
 
 Some example project ideas from previous classes:
