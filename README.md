@@ -12,25 +12,26 @@ Some example project ideas from previous classes:
 
 ## Requirements:
 
-1. You should have least five models. You do not have to have all of these built out on day one. Just having three is fine.  But by the end of the week, you should have five models.
+1. You should have least five models. You do not have to have all of these built out on day one. But by the end of the week, you should have at least five models.
 
-2. Some methods in your models. Each group member should write at least 4 -5 methods. So there should be at least twenty methods total in your models.
+2. Some methods in your models. There should be at least twenty methods total in your models. These are to be used to better extract data from your tables. Think Flatiron BnB Lab
 
-3. Specs - there should be at least 20 specs in your project (five per person). We'll cover testing tomorrow--stay tuned!
+3. No APIs until you get approval from an instructor.  The reason is because API's oftentimes leads you to learning the specific API really well, but not learning Rails that well.  Rails is a more transferable skill.  So stick with that.
 
-4. An analytics page - I will show some charting libraries for this in a lecture - so don't worry about displaying this data visually.  The main learning goal of this is to get you to write some interesting activerecord queries.  I will also try to have a review of advanced AR some time this week.
+4. Specs - there should be at least 10 specs in your project (five per person). 
 
-5. No APIs until you get approval from an instructor.  The reason is because API's oftentimes leads you to learning the specific API really well, but not learning Rails that well.  Rails is a more transferable skill.  So stick with that. 
+5. An analytics page - The main learning goal of this is to get you to write some interesting activerecord queries.
 
 6. No JavaScript. Stay focused on Rails for this project - we'll have plenty of time this semeseter to cover JS topics. 
 
-## Week Guideline
+## Project Task Guidelines
+- come up with idea, model out domain. 
+- add model tests, start building out basic features. Have some functionality built out by the end of the day. 
+- Iterate on the features that you built yesterday. Go from a 'skateboard' version to a scooter or a bicycle. It doesnt' have to be perfect, but it should be working. 
+- start styling/ cleaning up issues. 
+- issue cleanup and final demos. 
 
-1. Monday - come up with idea, model out domain. 
-2. Tuesday - add model tests, start building out basic features. Have some functionality built out by the end of the day. 
-3. Wednesday - Iterate on the features that you built yesterday. Go from a 'skateboard' version to a scooter or a bicycle. **Be prepared to demo something by 5 pm**. It doesnt' have to be perfect, but it should be working. 
-4. Thursday - start styling/ cleaning up issues. 
-5. Friday - issue cleanup and final demos. 
+**Be prepared to demo something by 11 am Friday**. 
 
 
 
