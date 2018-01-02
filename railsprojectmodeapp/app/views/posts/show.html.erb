@@ -2,10 +2,12 @@
 <%= @post.content %><br>
 <%= @post.likes.count %> likes<br>
 
-<% if !@post.likes.any? {|like| like.user == current_user } %>
-  <%= button_to "Like", {controller: "likes", action: "create", post_id: @post.id, user_id: current_user.id} %>
-<% else %>
-  <%= button_to "Unlike", {controller: "likes", action: "destroy", post_id: @post.id, user_id: current_user.id}, method: 'delete' %>
+<% if logged_in? %>
+  <% if !@post.likes.any? {|like| like.user == current_user } %>
+    <%= button_to "Like", {controller: "likes", action: "create", post_id: @post.id, user_id: current_user.id} %>
+  <% else %>
+    <%= button_to "Unlike", {controller: "likes", action: "destroy", post_id: @post.id, user_id: current_user.id}, method: 'delete' %>
+  <% end %>
 <% end %>
 
 
@@ -16,8 +18,11 @@
 
 <br><br>
 
-
-<%= render file: 'comments/new', locals: {post_id: @post.id} %>
+<% if logged_in? %>
+  <%= render file: 'comments/new', locals: {post_id: @post.id} %>
+<% else %>
+  <h5>Please login or signup to comment</h5>
+<% end %>
 
 <% @post.comments.reverse.each do |comm| %>
   <strong><%= link_to comm.user.username, user_path(comm.user) %></strong> <%= comm.created_at %><br>
@@ -26,7 +31,7 @@
 
   <% if comm.user == current_user %>
     <%= link_to "Edit", edit_comment_path(comm) %>
-    <%= link_to "Delete", comment_path, method: 'delete' %>
+    <%= link_to "Delete", comment_path(comm), method: 'delete' %>
     <br><br>
   <% end %>
 
