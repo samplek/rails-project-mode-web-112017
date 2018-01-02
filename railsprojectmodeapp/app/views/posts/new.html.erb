@@ -1,0 +1,60 @@
+<h2>Create New Post</h2>
+
+<% if flash[:error] %>
+  <% flash[:error].each do |error| %>
+    <%= error %><br>
+  <% end %>
+<% end %>
+
+<%= form_for @post do |f|%>
+  <%=f.text_field :content, placeholder: "Content"%><br>
+  <%=f.password_field :post_type, placeholder: "Text or URL?"%><br>
+  <%=f.password_field :title, placeholder: "Title"%><br>
+  <%=f.text_field :link, placeholder: "Link"%><br>
+  <%=f.collection_select (:category_id, @categories, :id, :name)%><br>
+  <%=f.submit%>
+<%end%>
+<!--
+<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Content" id="content" type="text" class="validate">
+          <label for="content">Content</label>
+        </div>
+
+        <div class="input-field col s6">
+          <input placeholder="Title" id="title" type="text" class="validate">
+          <label for="title">Title</label>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="post_type" type="text" class="validate">
+          <label for="post_type">Text or URL?</label>
+        </div>
+
+        <div class="input-field col s6">
+          <input id="link" type="text" class="validate">
+          <label for="link">Link</label>
+        </div>
+
+      </div>
+
+      <div class="input-field col s12">
+          <select>
+
+            <%= @categories.each do |cat| %>
+              <option value="" disabled selected>Choose your option</option>
+              <option value="<%= cat.id%>"><%=cat.name%></option>
+            <%end%>
+          </select>
+
+          <label>Choose Category</label>
+        </div>
+
+    </form>
+  </div> -->
