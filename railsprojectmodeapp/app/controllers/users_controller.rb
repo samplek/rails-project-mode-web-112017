@@ -1,5 +1,16 @@
 class UsersController < ApplicationController
 
+  def index
+    #will show their posts/likes/etc
+    if logged_in?
+      @user = current_user
+      @posts = @user.posts
+    else
+      redirect_to new_session_path
+    end
+    # @categories = @user.categories
+  end
+
   def new
     @user = User.new
   end
@@ -10,7 +21,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    #will show only account info
+    @user = current_user
+    @posts = @user.posts
   end
 
   def edit

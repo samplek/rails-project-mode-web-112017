@@ -1,1 +1,7 @@
 <h1>Hello <%=@user.username%></h1>
+<h4>Birthday: <%=@user.birth_date%></h4>
+<h4>Email <%=@user.email%></h4>
+
+<% @posts.each do |post| %>
+  <%=link_to post.title, post_path(post)%><br>
+<%end%>

@@ -9,6 +9,28 @@
   </head>
 
   <body>
+
+    <nav>
+      <div class="nav-wrapper grey darken-1">
+        <a href="#" class="brand-logo center">EXPLORE YOUR HISTORY</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><%= link_to "HOME", categories_path%></li>
+
+
+          <% if logged_in? %>
+            <li><%= link_to "MY PROFILE", user_path(current_user)%></li>
+            <li><%= link_to "LOG OUT", logout_path, method: :delete%></li>
+          <%else %>
+            <li><%= link_to "SIGN UP", new_user_path%></li>
+            <li><%= link_to "LOG IN", login_path%></li>
+          <%end%>
+
+        </ul>
+      </div>
+    </nav>
+
+
+
     <%= yield %>
   </body>
 </html>
