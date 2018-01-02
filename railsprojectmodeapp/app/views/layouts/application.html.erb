@@ -20,6 +20,7 @@
           <% if logged_in? %>
             <li><%= link_to "MY PROFILE", user_path(current_user)%></li>
             <li><%= link_to "LOG OUT", logout_path, method: :delete%></li>
+            <li><%= link_to "NEW POST", new_post_path %></li>
           <%else %>
             <li><%= link_to "SIGN UP", new_user_path%></li>
             <li><%= link_to "LOG IN", login_path%></li>

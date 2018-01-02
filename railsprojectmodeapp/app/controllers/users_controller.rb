@@ -22,8 +22,9 @@ class UsersController < ApplicationController
 
   def show
     #will show only account info
-    @user = current_user
+    @user = User.find(params[:id])
     @posts = @user.posts
+    @comments = @user.comments
   end
 
   def edit

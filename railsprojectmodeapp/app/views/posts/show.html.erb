@@ -1,0 +1,33 @@
+<%= @post.title %><br><br>
+<%= @post.content %><br>
+<%= @post.likes.count %> likes<br>
+
+<% if !@post.likes.any? {|like| like.user == current_user } %>
+  <%= button_to "Like", {controller: "likes", action: "create", post_id: @post.id, user_id: current_user.id} %>
+<% else %>
+  <%= button_to "Unlike", {controller: "likes", action: "destroy", post_id: @post.id, user_id: current_user.id}, method: 'delete' %>
+<% end %>
+
+
+<a href="<%= @post.link %>"><%= @post.link %></a>
+<br>
+<%= link_to @post.user.username, user_path(@post.user)%><br>
+<%= link_to @post.category.name, category_path(@post.category)%>
+
+<br><br>
+
+
+<%= render file: 'comments/new', locals: {post_id: @post.id} %>
+
+<% @post.comments.reverse.each do |comm| %>
+  <strong><%= link_to comm.user.username, user_path(comm.user) %></strong> <%= comm.created_at %><br>
+  <%= comm.content %>
+  <br><br>
+
+  <% if comm.user == current_user %>
+    <%= link_to "Edit", edit_comment_path(comm) %>
+    <%= link_to "Delete", comment_path, method: 'delete' %>
+    <br><br>
+  <% end %>
+
+<% end %>

@@ -2,6 +2,6 @@
 
 
 <% @posts.each do |post| %>
-  <b><%=post.title%></b><br>
+  <b><%=link_to post.title, post_path(post)%></b><br>
   <%=post.content%><br><br>
 <%end%>

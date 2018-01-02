@@ -1,0 +1,9 @@
+Create Comment <br>
+
+<%= form_tag comments_path do  %>
+  <%= text_area_tag 'comment[content]' %>
+  <%= hidden_field_tag 'comment[post_id]', @post.id %>
+  <%= hidden_field_tag 'comment[user_id]', current_user.id %>
+
+  <%= submit_tag "Comment"%>
+<% end %>

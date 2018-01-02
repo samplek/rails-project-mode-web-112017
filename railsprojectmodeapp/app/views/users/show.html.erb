@@ -1,7 +1,27 @@
 <h1>Hello <%=@user.username%></h1>
-<h4>Birthday: <%=@user.birth_date%></h4>
-<h4>Email <%=@user.email%></h4>
 
+<% if @user == current_user %>
+  <h4>Birthday: <%=@user.birth_date%></h4>
+  <h4>Email <%=@user.email%></h4>
+<% end %>
+
+<h5>LIKES</h5>
+<% @user.likes.each do |like| %>
+  <%= link_to like.post.title, post_path(like.post) %><br>
+<% end %>
+
+
+<h5>POSTS</h5>
 <% @posts.each do |post| %>
   <%=link_to post.title, post_path(post)%><br>
+  <%=link_to post.category.name, category_path(post.category)%>
+  <br><br>
+<%end%>
+
+<br><br>
+
+<h5>COMMENTS</h5>
+<% @comments.each do |comment| %>
+  <%=link_to comment.post.title, post_path(comment.post)%><br>
+  <%= comment.content %><br><br>
 <%end%>
