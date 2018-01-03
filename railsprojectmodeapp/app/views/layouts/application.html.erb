@@ -30,8 +30,21 @@
       </div>
     </nav>
 
+    <nav>
+
+      <div class="nav-wrapper grey">
+        <div class="left">
+          <% Category.all.each do |cate| %>
+            <strong style="padding: 0px 5px 0px 5px; font-size:10px;"><%= link_to cate.name, category_path(cate) %></strong>
+          <% end %>
+        </div>
+      </div>
+    </nav>
 
 
-    <%= yield %>
+    <div class="container">
+
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -1,6 +1,14 @@
 <h1><%= @category.name %></h1>
 
 
+
+<div class="border">
+  <%= button_to "Page 1", category_path(@category), method: 'get' %>
+  <%= button_to "Page 2", category_path(@category), method: 'get', params: {page_num: '20'} %>
+  <%= button_to "Page 3", category_path(@category), method: 'get', params: {page_num: '30'} %>
+</div>
+
+<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
 <% @posts.each do |post| %>
   <b><%=link_to post.title, post_path(post)%></b><br>
   <%=post.content%><br><br>

@@ -1,12 +1,23 @@
 class CategoriesController < ApplicationController
 
   def index
-    @categories = Category.all
+    if params[:page_num]
+      min = params[:page_num] * 10
+      @categories = Catergory.all[-2..-1]
+    else
+      @categories = Category.all[0..9]
+    end
   end
 
   def show
     @category = Category.find(params[:id])
-    @posts = @category.posts
+
+    if params[:page_num]
+      page = params[:page_num].to_i
+      @posts = @category.posts[page-10..page]
+    else
+      @posts = @category.posts[0..9]
+    end
   end
 
 
