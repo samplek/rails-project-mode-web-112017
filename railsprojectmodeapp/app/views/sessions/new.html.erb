@@ -1,10 +1,12 @@
 <%= flash[:error] if flash[:error] %><br><br>
 
+<div class="btn">
 
-<%= User.all.sample.username %>
+  <%= User.all.sample.username %>
 
-<%= form_tag sessions_path do %>
-  <%= text_field_tag :username%>
-  <%= password_field_tag :password%>
-  <%= submit_tag%>
-<%end%>
+  <%= form_tag sessions_path do %>
+  <%= text_field_tag :username, nil, placeholder: "Username", class: 'form-control' %>
+  <%= password_field_tag :password, nil, placeholder: "Password", class: 'form-control' %>
+  <%= submit_tag "Login", class: 'form-control bg-primary text-light' %>
+  <%end%>
+</div>

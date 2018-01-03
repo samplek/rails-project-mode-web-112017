@@ -1,5 +1,4 @@
 
-
 15.times do
   User.create(
     username: Faker::Name.name,
@@ -17,19 +16,23 @@ categories = []
   categories << Faker::Name.title.split(" ")[0]
 end
 
+def a
+  [true,false].sample
+end
 categories.uniq.each do |category|
+  
   Category.create(
-    name: category,
-    market: false
+    name: "#{category}#{" Marketplace" if a}",
+    market: a
   )
 end
 
 
 Category.all.each do |cate|
-  23.times do
+  rand(10..40).times do
     Post.create!(
       content: Faker::HitchhikersGuideToTheGalaxy.marvin_quote * 3,
-      post_type: "text",
+      post_type: ["text","url"].sample,
       title: Faker::HitchhikersGuideToTheGalaxy.specie,
       link: "http://www.google.com",
       category_id: cate.id,

@@ -1,4 +1,4 @@
-<h2>Create New Post</h2>
+<h2 class="btn bg-primary">Create New Post</h2>
 
 <% if flash[:error] %>
   <% flash[:error].each do |error| %>
@@ -11,9 +11,24 @@
   <%=f.password_field :post_type, placeholder: "Text or URL?"%><br>
   <%=f.password_field :title, placeholder: "Title"%><br>
   <%=f.text_field :link, placeholder: "Link"%><br>
-  <%=f.collection_select (:category_id, @categories, :id, :name)%><br>
+  <div class="input-field ">
+    HELLO
+    <%=  f.collection_select :category_id, Category.all, :id, :name %>
+  </div>
   <%=f.submit%>
 <%end%>
+
+<!-- Dropdown Trigger -->
+<a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+
+<!-- Dropdown Structure -->
+<ul id='dropdown1' class='dropdown-content'>
+  <li><a href="/posts">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
+
 <!--
 <div class="row">
     <form class="col s12">

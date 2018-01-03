@@ -11,14 +11,16 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    params[:page_num] ||= "10"
 
     if params[:page_num]
-      page = params[:page_num].to_i
-      @posts = @category.posts[page-10..page]
+      @page = params[:page_num].to_i
+      @posts = @category.posts[@page-10..@page]
     else
       @posts = @category.posts[0..9]
     end
   end
 
 
+  
 end

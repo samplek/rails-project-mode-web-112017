@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      redirect_to(request.env['HTTP_REFERER'])
     else
       flash[:error] = "Username and passwowrd do not match"
       redirect_to new_session_path
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete :user_id
-    redirect_to new_session_path
+    redirect_to categories_path
   end
 
 end

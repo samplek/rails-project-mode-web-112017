@@ -1,15 +1,41 @@
 <h1><%= @category.name %></h1>
+<%= @category.market %>
 
 
-
-<div class="border">
-  <%= button_to "Page 1", category_path(@category), method: 'get' %>
-  <%= button_to "Page 2", category_path(@category), method: 'get', params: {page_num: '20'} %>
-  <%= button_to "Page 3", category_path(@category), method: 'get', params: {page_num: '30'} %>
-</div>
-
-<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+<% if !@category.market %>
 <% @posts.each do |post| %>
-  <b><%=link_to post.title, post_path(post)%></b><br>
+  <b><%=link_to post.title, post_path(post)%> <%= post.post_time %></b><br>
   <%=post.content%><br><br>
 <%end%>
+
+<div class="row">
+  <% @category.page_counter.each_with_index do |posts, i| %>
+    <% if !posts.empty? %>
+      <div class="col s1">
+        <%= button_to "#{i+1}", category_path(@category),
+            method: 'get',
+            params: {page_num: "#{(i+1)*10}"},
+            class: 'btn-flat blue'
+          %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+<% else %>
+  <div class="row">
+    <% @posts.each do |post| %>
+          <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title"><%=link_to post.title, post_path(post), class: 'white-text'%></span>
+                <p><%= post.content[0..100] %></p>
+              </div>
+              <div class="card-action">
+                <p>$100</p>
+              </div>
+            </div>
+          </div>
+          <%end%>
+        </div>
+        <% end %>

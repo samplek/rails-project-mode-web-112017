@@ -9,25 +9,16 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-light bg-primary">
+      <%= link_to "HOME", categories_path, class: 'btn bg-primary text-light'%>
+      <% if logged_in? %>
+        <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
+        <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
+        <%= link_to "NEW POST", new_post_path, class: 'btn bg-primary text-light' %>
+      <%else %>
+        <%= link_to "SIGN UP", new_user_path, class: 'btn bg-primary text-light'%>
 
-    <nav>
-      <div class="nav-wrapper grey darken-1">
-        <a href="#" class="brand-logo center">EXPLORE YOUR HISTORY</a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li><%= link_to "HOME", categories_path%></li>
-
-
-          <% if logged_in? %>
-            <li><%= link_to "MY PROFILE", user_path(current_user)%></li>
-            <li><%= link_to "LOG OUT", logout_path, method: :delete%></li>
-            <li><%= link_to "NEW POST", new_post_path %></li>
-          <%else %>
-            <li><%= link_to "SIGN UP", new_user_path%></li>
-            <li><%= link_to "LOG IN", login_path%></li>
-          <%end%>
-
-        </ul>
-      </div>
+      <%end%>
     </nav>
 
     <nav>
@@ -43,8 +34,21 @@
 
 
     <div class="container">
-
-      <%= yield %>
+      <div class="row">
+        <div class="col-md-9">
+            <%= yield %>
+        </div>
+        <div class="col-md-3">
+          <% if logged_in? %>
+            <%= render 'users/small_show', locals: {user: @user = current_user} %>
+          <% else %>
+          <div class="bg-secondary">
+            <%= render template: 'sessions/new' %>
+          </div>
+          <% end %>
+        </div>
+      </div>
     </div>
+
   </body>
 </html>
