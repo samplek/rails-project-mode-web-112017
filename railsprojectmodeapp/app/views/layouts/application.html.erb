@@ -24,8 +24,6 @@
     <nav class="navbar navbar-light bg-primary mb-4">
       <%= link_to "HOME", root_path, class: 'btn bg-primary text-light'%>
       <% if logged_in? %>
-        <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
-        <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
         <%= link_to "NEW POST", new_post_path, class: 'btn bg-primary text-light' %>
       <%else %>
         <%= link_to "SIGN UP", new_user_path, class: 'btn bg-primary text-light'%>
@@ -61,79 +59,72 @@
     <div class="container">
       <div class="row">
 
-        <!-- MAIN PAGE BODY -->
+        <!-- MAIN PAGE BODY START -->
         <div class="col-md-9">
             <%= yield %>
         </div>
 
         <!-- SIDE BAR BODY -->
-        <div class="col-md-3 border">
-
+        <div class="col-md-3 px-3">
+          <div class="border px-3">
           <!-- USER INFO OR LOGIN -->
-          <% if logged_in? %>
-            <%= render 'users/small_show', locals: {user: @user = current_user} %>
-          <% else %>
-            <div class="row border bg-light py-3">
-              <div class="col">
-                <%= render template: 'sessions/new' %>
-              </div>
-            </div>
-          <% end %>
-
-          <!-- CATEGORY DESCRIPTION -->
-          <!-- CATEGORY PAGE -->
-          <% Category.all.each do |category| %>
-            <% if current_page?(category_path(category)) %>
-              <h4><%=category.name%></h4>
+          <div class="row">
+            <div class="col py-3">
 
               <% if logged_in? %>
-                <% if !category.user_categories.any? {|user_category| user_category.user == current_user } %>
-                  <%= button_to "Like", {controller: "user_categories", action: "create", category_id: category.id, user_id: current_user.id} %>
-                <% else %>
-                  <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: category.id, user_id: current_user.id}, method: 'delete' %>
-                  <% end %>
-                <% end %>
-
-              <h5>About This Category</h5>
-              <p><%=category.description%></p>
-            <% end %>
-          <% end %>
-
-          <!-- POST PAGE -->
-          <% Post.all.each do |post| %>
-            <% if current_page?(post_path(post)) %>
-
-            <!-- POST INFO -->
-            <div class="row border">
-              <div class="col">
-                <%=post.title %><br>
-                <%=post.post_time %><br>
-                <%=post.likes_count %><br>
-                <%=post.comments_count %><br>
-
-              </div>
-            </div>
-
-            <!-- POST CATEGORY INFO -->
-            <h4><%=post.category.name%></h4>
-
-            <% if logged_in? %>
-              <% if !post.category.user_categories.any? {|user_category| user_category.user == current_user } %>
-                <%= button_to "Like", {controller: "user_categories", action: "create", category_id: post.category.id, user_id: current_user.id} %>
+                <%= render 'users/small_show', locals: {user: @user = current_user} %>
               <% else %>
-                <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: post.category.id, user_id: current_user.id}, method: 'delete' %>
-                <% end %>
+                <div class="row border bg-light">
+                  <div class="col py-3">
+                    <%= render template: 'sessions/new' %>
+                  </div>
+                </div>
               <% end %>
 
-            <h5>About This Category</h5>
-            <p><%=post.category.description %></p>
+            </div>
+          </div>
+
+
+          <!-- CATEGORY DESCRIPTION -->
+
+            <!-- CATEGORY PAGE -->
+            <% Category.all.each do |category| %>
+              <% if current_page?(category_path(category)) %>
+                <div class="row border border-left-0 border-right-0 border-bottom-0 py-3 mb-3">
+                  <div class="col">
+                    <%= render 'categories/small_show', locals: {category: @category = category} %>
+                  </div>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
+
+
+            <!-- POST PAGE -->
+            <% Post.all.each do |post| %>
+              <% if current_page?(post_path(post)) %>
+
+              <!-- POST INFO -->
+              <div class="row border border-left-0 border-right-0 py-3">
+                <div class="col">
+                  <%= render 'posts/small_show', locals: {post: @post = post} %>
+                </div>
+              </div>
+
+              <!-- POST CATEGORY INFO -->
+              <div class="row border border-left-0 border-right-0 border-top-0 border-bottom-0 py-3 mb-3">
+                <div class="col">
+                  <%= render 'categories/small_show', locals: {category: @category = post.category} %>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
 
 
         </div>
+        </div>
       </div>
     </div>
+    <!-- MAIN PAGE BODY END -->
 
     <!-- FOOTER -->
     <nav class="navbar navbar-light bg-primary">

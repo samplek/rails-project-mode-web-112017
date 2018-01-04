@@ -16,7 +16,6 @@ class User < ApplicationRecord
     end
   end
 
-
   def posts_count
     self.posts.count
   end
@@ -37,6 +36,16 @@ class User < ApplicationRecord
     else
       "Member for #{join_date.floor} days"
     end
+  end
+
+  def total_score
+    self.likes.count
+  end
+
+  def uniq_score
+    self.likes.map do |like|
+      like.user
+    end.uniq.count
   end
 
 end
