@@ -18,5 +18,9 @@ Rails.application.routes.draw do
 
   resources :likes
 
+  get '/analytics', to: 'analytics#index'
+
+  get '/analytics/user', to: 'analytics#show', as: 'analytic'
+
   root 'posts#index'
 end

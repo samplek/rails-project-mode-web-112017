@@ -58,18 +58,17 @@
           <% end %>
 
           <!-- CATEGORY DESCRIPTION -->
-
+          <h3>About This Category</h3>
           <% Category.all.each do |category| %>
             <% if current_page?(category_path(category)) %>
-
-              <h1>HELLO</h1>
+              <h4><%=category.description%></h4>
             <% end %>
           <% end %>
 
           <% Post.all.each do |post| %>
             <% if current_page?(post_path(post)) %>
 
-              <h1>HELLO</h1>
+              <h4><%=post.category.description %></h4>
             <% end %>
           <% end %>
 
@@ -80,15 +79,9 @@
 
     <!-- FOOTER -->
     <nav class="navbar navbar-light bg-primary">
-      <%= link_to "HOME", root_path, class: 'btn bg-primary text-light'%>
-      <% if logged_in? %>
-        <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
-        <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
-        <%= link_to "NEW POST", new_post_path, class: 'btn bg-primary text-light' %>
-      <%else %>
-        <%= link_to "SIGN UP", new_user_path, class: 'btn bg-primary text-light'%>
 
-      <%end%>
+        <%= link_to "ANALYTICS", analytics_path, class: 'btn bg-primary text-light'%>
+
     </nav>
 
   </body>

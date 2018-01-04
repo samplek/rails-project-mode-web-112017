@@ -1,8 +1,8 @@
 
     <% if @user == current_user %>
     <h1>Hello <%=@user.username%></h1>
-    <h4>Birthday: <%=@user.birth_date%></h4>
-    <h4>Email <%=@user.email%></h4>
+    <h4>Birthday: <%=@user.birth_date.strftime("%b %e, %Y")%></h4>
+    <h4>Email: <%=@user.email%></h4>
     <%= link_to "Go to Profile", user_path(@user) %>
     <% end %>
 

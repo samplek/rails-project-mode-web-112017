@@ -15,4 +15,27 @@ class User < ApplicationRecord
     end
   end
 
+
+  def posts_count
+    self.posts.count
+  end
+
+  def likes_count
+    self.likes.count
+  end
+
+  def comments_count
+    self.comments.count
+  end
+
+  def member_since
+    join_date = (((Time.now - self.created_at)/3600)/24)
+
+    if join_date <= 1
+      "Member for 1 day"
+    else
+      "Member for #{join_date.floor} days"
+    end
+  end
+
 end
