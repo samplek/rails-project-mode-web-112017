@@ -34,4 +34,44 @@ class Post < ApplicationRecord
     end
   end
 
+  def likes_count
+    if self.likes.count == 0
+      "no likes"
+    elsif self.likes_count == 1
+      "1 like"
+    elsif self.likes_count > 1
+      "#{self.likes_count} likes"
+    end
+  end
+
+  def comments_count
+    if self.comments.count == 0
+      "no comments"
+    elsif self.comments_count == 1
+      "1 comment"
+    elsif self.comments_count > 1
+      "#{self.comments_count} likes"
+    end
+  end
+
+  def like_comments
+    string = ""
+
+    if self.likes_count == 1
+      string += "1 like "
+    elsif self.likes_count > 1
+      string += "#{self.likes_count} likes "
+    end
+
+    string += "| " if self.likes_count >= 1 && self.comments_count >= 1
+
+    if self.comments_count == 1
+      string += "1 comment "
+    elsif self.comments_count > 1
+      string += "#{self.comments_count} comments "
+    end
+
+    string
+  end
+
 end

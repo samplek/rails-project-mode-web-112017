@@ -81,29 +81,52 @@
           <% end %>
 
           <!-- CATEGORY DESCRIPTION -->
-
+          <!-- CATEGORY PAGE -->
           <% Category.all.each do |category| %>
             <% if current_page?(category_path(category)) %>
+              <h4><%=category.name%></h4>
 
-            <h4><%=category.name%></h4>
+              <% if logged_in? %>
+                <% if !category.user_categories.any? {|user_category| user_category.user == current_user } %>
+                  <%= button_to "Like", {controller: "user_categories", action: "create", category_id: category.id, user_id: current_user.id} %>
+                <% else %>
+                  <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: category.id, user_id: current_user.id}, method: 'delete' %>
+                  <% end %>
+                <% end %>
 
-            <% if logged_in? %>
-              <% if !category.user_categories.any? {|user_category| user_category.user == current_user } %>
-                <%= button_to "Like", {controller: "user_categories", action: "create", category_id: category.id, user_id: current_user.id} %>
-              <% else %>
-                <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: category.id, user_id: current_user.id}, method: 'delete' %>
-              <% end %>
-            <% end %>
-
-            <h5>About This Category</h5>
+              <h5>About This Category</h5>
               <p><%=category.description%></p>
             <% end %>
           <% end %>
 
+          <!-- POST PAGE -->
           <% Post.all.each do |post| %>
             <% if current_page?(post_path(post)) %>
 
-              <p><%=post.category.description %></p>
+            <!-- POST INFO -->
+            <div class="row border">
+              <div class="col">
+                <%=post.title %><br>
+                <%=post.post_time %><br>
+                <%=post.likes_count %><br>
+                <%=post.comments_count %><br>
+
+              </div>
+            </div>
+
+            <!-- POST CATEGORY INFO -->
+            <h4><%=post.category.name%></h4>
+
+            <% if logged_in? %>
+              <% if !post.category.user_categories.any? {|user_category| user_category.user == current_user } %>
+                <%= button_to "Like", {controller: "user_categories", action: "create", category_id: post.category.id, user_id: current_user.id} %>
+              <% else %>
+                <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: post.category.id, user_id: current_user.id}, method: 'delete' %>
+                <% end %>
+              <% end %>
+
+            <h5>About This Category</h5>
+            <p><%=post.category.description %></p>
             <% end %>
           <% end %>
 
