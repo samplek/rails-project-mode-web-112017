@@ -1,9 +1,19 @@
-<h2>Edit Your Account</h2>
-<%= form_for @user do |f|%>
-  <%=f.text_field :username, placeholder: "Username"%><br>
+<% if current_user.admin == true %>
+  <h2>Edit User Account</h2>
+  <%= form_for @user do |f|%>
   <%=f.password_field :password, placeholder: "Password"%><br>
   <%=f.password_field :password_confirmation, placeholder: "Confirm Password"%><br>
-  <%=f.text_field :email, placeholder: "Email"%><br>
-  <%=f.date_field :birth_date%><br>
-  <%=f.submit%>
+    <%=f.text_field :moderator%><br>
+    <%=f.submit%>
+  <%end %>
+<%else%>
+  <h2>Edit Your Account</h2>
+  <%= form_for @user do |f|%>
+    <%=f.text_field :username, placeholder: "Username"%><br>
+    <%=f.password_field :password, placeholder: "Password"%><br>
+    <%=f.password_field :password_confirmation, placeholder: "Confirm Password"%><br>
+    <%=f.text_field :email, placeholder: "Email"%><br>
+    <%=f.date_field :birth_date%><br>
+    <%=f.submit%>
+  <%end%>
 <%end%>

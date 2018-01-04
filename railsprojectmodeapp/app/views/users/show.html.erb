@@ -1,5 +1,13 @@
 
-<h1>Hello <%=@user.username%></h1>
+<h1><%=@user.username%></h1>
+  <% if @user.admin == true%>
+     <h3>admin</h3>
+  <%end%>
+
+  <% if current_user.admin == true %>
+    <%= button_to "Edit User's Account", edit_user_path(@user), method: 'get' %>
+  <%end%>
+
 
 <% if @user == current_user %>
   <h4>Birthday: <%=@user.birth_date.strftime("%b %e, %Y")%></h4>

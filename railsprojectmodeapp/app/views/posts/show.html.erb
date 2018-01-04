@@ -21,9 +21,12 @@
 
 <a href="<%= @post.link %>"><%= @post.link %></a>
 <br>
-<%= link_to @post.user.username, user_path(@post.user)%><br>
+<%= link_to @post.user.username, user_path(@post.user)%>
+  <% if @post.user.admin == true%>
+    | admin
+    <%end%>
+<br>
 <%= link_to @post.category.name, category_path(@post.category)%>
-
 <br><br>
 
 <% if logged_in? %>
@@ -39,6 +42,9 @@
 
   <% if comm.user == current_user %>
     <%= link_to "Edit", edit_comment_path(comm) %>
+    <%= link_to "Delete", comment_path(comm), method: 'delete' %>
+    <br><br>
+  <% elsif current_user.admin == true %>
     <%= link_to "Delete", comment_path(comm), method: 'delete' %>
     <br><br>
   <% end %>

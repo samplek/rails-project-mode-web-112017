@@ -1,5 +1,7 @@
 <h1><%= @category.name %></h1>
-
+<%if logged_in? && current_user.admin == true%>
+  <%= button_to "Delete Category", {controller: "categories", action: "destroy", category_id: @category.id}, method: 'delete' %>
+<%end%>
 
 
 <% if !@category.market %>
@@ -9,6 +11,7 @@
     <b><%=link_to post.title, post_path(post)%> <%= post.post_time %></b><br>
     <%=post.content%><br><br>
   <%end%>
+
 
 
 <% else %>

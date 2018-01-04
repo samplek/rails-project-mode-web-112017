@@ -21,6 +21,31 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def new
+    @category = Category.new
+  end
 
-  
+  def create
+    @category = Category.new(category_params)
+    if @category.save
+      redirect_to category_path(@category)
+    else
+      flash[:error] = @category.errors.full_messages
+      redirect_to new_category_path
+    end
+
+  end
+
+  def destroy
+    @category = Category.find_by(params[:category_id])
+    @category.destroy
+    redirect_to(request.env['HTTP_REFERER'])
+  end
+
+  private
+
+  def category_params
+    params.require(:category).permit(:name, :description, :market)
+  end
+
 end
