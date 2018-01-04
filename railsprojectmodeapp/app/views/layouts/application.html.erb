@@ -34,6 +34,29 @@
     </nav>
 
 
+    <nav class="navbar navbar-light bg-primary mb-4">
+      <%  if logged_in? %>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          My Categories
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <%if current_user.categories.length > 0%>
+              <% current_user.categories.each do |cat| %>
+                <a class="dropdown-item" href="<%=category_path(cat)%>"><%= cat.name%></a>
+              <%end%>
+            <%else%>
+              <a class="dropdown-item" href="#">[You Have No Liked Categories]</a>
+            <%end%>
+          </div>
+        </div>
+
+
+      <%end%>
+
+    </nav>
+
+
 
     <div class="container">
       <div class="row">
@@ -58,17 +81,29 @@
           <% end %>
 
           <!-- CATEGORY DESCRIPTION -->
-          <h3>About This Category</h3>
+
           <% Category.all.each do |category| %>
             <% if current_page?(category_path(category)) %>
-              <h4><%=category.description%></h4>
+
+            <h4><%=category.name%></h4>
+
+            <% if logged_in? %>
+              <% if !category.user_categories.any? {|user_category| user_category.user == current_user } %>
+                <%= button_to "Like", {controller: "user_categories", action: "create", category_id: category.id, user_id: current_user.id} %>
+              <% else %>
+                <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: category.id, user_id: current_user.id}, method: 'delete' %>
+              <% end %>
+            <% end %>
+
+            <h5>About This Category</h5>
+              <p><%=category.description%></p>
             <% end %>
           <% end %>
 
           <% Post.all.each do |post| %>
             <% if current_page?(post_path(post)) %>
 
-              <h4><%=post.category.description %></h4>
+              <p><%=post.category.description %></p>
             <% end %>
           <% end %>
 

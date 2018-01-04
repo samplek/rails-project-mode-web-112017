@@ -4,7 +4,8 @@ class User < ApplicationRecord
   has_many :likes
   has_many :comments
   has_many :posts
-  has_many :categories, through: :posts
+  has_many :user_categories
+  has_many :categories, through: :user_categories
 
   validates :username, :email, presence: true, uniqueness: true
   validates :password, presence: true
