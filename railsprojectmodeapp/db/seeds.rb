@@ -1,17 +1,12 @@
 
-  15.times do
+15.times do
   user = User.create(
     username: Faker::Name.name,
     email: Faker::Internet.email,
     password: "1234",
     birth_date: Faker::Date.birthday(18, 65)
-    )
-  end
-
-# User.all.each do |u|
-#   u.created_at = Faker::Date.birthday(1, 5)
-# end
-
+  )
+end
 
 
 # START CATEGORY
