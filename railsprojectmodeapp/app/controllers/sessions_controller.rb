@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       redirect_to(request.env['HTTP_REFERER'])
     else
       flash[:error] = "Username and passwowrd do not match"
-      redirect_to new_session_path
+      redirect_to(request.env['HTTP_REFERER'])
     end
 
   end

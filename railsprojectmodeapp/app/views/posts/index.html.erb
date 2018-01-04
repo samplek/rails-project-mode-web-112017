@@ -1,0 +1,73 @@
+<%= button_to 'Top Posts', posts_path, method: 'get' %>
+<%= button_to 'Top Market', posts_path, method: 'get', params: {type: 'market'} %>
+
+<div class="row">
+  <% Category.all.select{|x| !x.market}.sample(4).each do |cate| %>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title"><h1><%= link_to cate.name, category_path(cate) %></h1>
+        <div class="card-text">
+
+          <% @posts[0..1].each do |post| %>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">
+                <strong><%= link_to post.title, post_path(post)%></strong><br>
+                <%= post.summary%><br><br>
+              </div>
+              <div class="card-footer border">
+                Lastest comment: <br>
+                <%= post.comments.last.content[0..150] %>
+              </div>
+            </div>
+          </div>
+          <br>
+          <% end %>
+
+
+        </div>
+      </div>
+    </div>
+    <br>
+
+  </div>
+  <% end %>
+</div>
+
+<% if !@type %>
+  <% Category.all.sample(5).each do |cate| %>
+  <h1><%= cate.name %></h1>
+
+
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-md-3">
+          <%= post.title%><br>
+          <%= post.summary%>
+        </div>
+        <br><br>
+      <% end %>
+    </div>
+
+  <% end %>
+<% end %>
+
+
+<% if @type == 'market' %>
+  <%= Category.all.sample(5).each do |cate| %>
+  <%= cate.name %>
+  <div class="row">
+    <% @posts.each do |post| %>
+    <div class="col-md-3">
+      <%= render 'posts/show_market', locals: {post: @post = post, user: @post.user = post.user} %>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
+
+
+
+
+
+<% end %>

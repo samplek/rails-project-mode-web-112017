@@ -18,4 +18,5 @@ Rails.application.routes.draw do
 
   resources :likes
 
+  root 'posts#index'
 end

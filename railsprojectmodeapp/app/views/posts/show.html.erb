@@ -1,6 +1,6 @@
 <% if @post.category.market %>
 
-<%= render 'show_market', locals: {post: @post, user: @post.user} %>
+<%= render 'posts/show_market', locals: {post: @post, user: @post.user} %>
 
 
 <% else %>

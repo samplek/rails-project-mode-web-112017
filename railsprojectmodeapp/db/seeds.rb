@@ -1,4 +1,3 @@
-
 15.times do
   User.create(
     username: Faker::Name.name,
@@ -8,25 +7,27 @@
   )
 end
 
-
-
+# START CATEGORY
 Category.destroy_all
+
 categories = []
 20.times do
   categories << Faker::Name.title.split(" ")[0]
 end
 
-def a
+def make
   [true,false].sample
 end
+
 categories.uniq.each do |category|
-  
+  a = make
   Category.create(
     name: "#{category}#{" Marketplace" if a}",
-    market: a
+    market: a,
+    description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote * 5
   )
 end
-
+# END CATEGORY
 
 Category.all.each do |cate|
   rand(10..40).times do
@@ -46,6 +47,15 @@ Post.all.each do |post|
   10.times do
     Comment.create!(
       content: Faker::HitchhikersGuideToTheGalaxy.quote,
+      user: User.all.sample,
+      post: post
+    )
+  end
+end
+
+Post.all.each do |post|
+  rand(1..20).times do
+    Like.create!(
       user: User.all.sample,
       post: post
     )

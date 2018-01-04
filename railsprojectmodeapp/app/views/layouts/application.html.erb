@@ -9,8 +9,20 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-light bg-primary">
-      <%= link_to "HOME", categories_path, class: 'btn bg-primary text-light'%>
+
+    <!-- CATEGORY NAVBAR -->
+    <nav>
+      <div class="nav-wrapper grey">
+        <div class="left">
+          <% Category.all.each do |cate| %>
+          <strong style="padding: 0px 5px 0px 5px; font-size:10px;"><%= link_to cate.name, category_path(cate) %></strong>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <nav class="navbar navbar-light bg-primary mb-4">
+      <%= link_to "HOME", root_path, class: 'btn bg-primary text-light'%>
       <% if logged_in? %>
         <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
         <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
@@ -21,34 +33,63 @@
       <%end%>
     </nav>
 
-    <nav>
-
-      <div class="nav-wrapper grey">
-        <div class="left">
-          <% Category.all.each do |cate| %>
-            <strong style="padding: 0px 5px 0px 5px; font-size:10px;"><%= link_to cate.name, category_path(cate) %></strong>
-          <% end %>
-        </div>
-      </div>
-    </nav>
 
 
     <div class="container">
       <div class="row">
+
+        <!-- MAIN PAGE BODY -->
         <div class="col-md-9">
             <%= yield %>
         </div>
-        <div class="col-md-3">
+
+        <!-- SIDE BAR BODY -->
+        <div class="col-md-3 border">
+
+          <!-- USER INFO OR LOGIN -->
           <% if logged_in? %>
             <%= render 'users/small_show', locals: {user: @user = current_user} %>
           <% else %>
-          <div class="bg-secondary">
-            <%= render template: 'sessions/new' %>
-          </div>
+            <div class="row border bg-light py-3">
+              <div class="col">
+                <%= render template: 'sessions/new' %>
+              </div>
+            </div>
           <% end %>
+
+          <!-- CATEGORY DESCRIPTION -->
+
+          <% Category.all.each do |category| %>
+            <% if current_page?(category_path(category)) %>
+
+              <h1>HELLO</h1>
+            <% end %>
+          <% end %>
+
+          <% Post.all.each do |post| %>
+            <% if current_page?(post_path(post)) %>
+
+              <h1>HELLO</h1>
+            <% end %>
+          <% end %>
+
+
         </div>
       </div>
     </div>
+
+    <!-- FOOTER -->
+    <nav class="navbar navbar-light bg-primary">
+      <%= link_to "HOME", root_path, class: 'btn bg-primary text-light'%>
+      <% if logged_in? %>
+        <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
+        <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
+        <%= link_to "NEW POST", new_post_path, class: 'btn bg-primary text-light' %>
+      <%else %>
+        <%= link_to "SIGN UP", new_user_path, class: 'btn bg-primary text-light'%>
+
+      <%end%>
+    </nav>
 
   </body>
 </html>

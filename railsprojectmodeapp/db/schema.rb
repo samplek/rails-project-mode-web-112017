@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20180102181153) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.string "description"
     t.boolean "market"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

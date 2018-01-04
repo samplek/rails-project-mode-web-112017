@@ -29,7 +29,11 @@ class UsersController < ApplicationController
   def show
     #will show only account info
     @user = User.find(params[:id])
-    @posts = @user.posts
+    if params[:show_type]
+      @type = params[:show_type]
+    end
+    @market_posts = @user.posts.select {|post| post.category.market}
+    @posts = @user.posts.select {|post| !post.category.market}
     @comments = @user.comments
   end
 

@@ -1,75 +1,73 @@
-<h2 class="btn bg-primary">Create New Post</h2>
-
 <% if flash[:error] %>
   <% flash[:error].each do |error| %>
     <%= error %><br>
   <% end %>
 <% end %>
 
-<%= form_for @post do |f|%>
-  <%=f.text_field :content, placeholder: "Content"%><br>
-  <%=f.password_field :post_type, placeholder: "Text or URL?"%><br>
-  <%=f.password_field :title, placeholder: "Title"%><br>
-  <%=f.text_field :link, placeholder: "Link"%><br>
-  <div class="input-field ">
-    HELLO
-    <%=  f.collection_select :category_id, Category.all, :id, :name %>
+<!-- NEW TEXT FORM -->
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">
+      <strong>Create a text post</strong>
+    </div>
+    <div class="card-text">
+      <%= form_for @post do |f|%>
+        <div class="form-group">
+          <%= f.text_field :title, placeholder: "Title", class: 'form-control', required: true%>
+        </div>
+        <%= f.text_area :content, placeholder: "Content", rows: 7, class: 'form-control mb-3'%>
+
+        <%= f.text_field :category, placeholder:"Category", id: 'moo', class: 'form-control mb-3', list: 'cata-list' %>
+          <datalist id="cata-list">
+            <% Category.all.each do |cata| %>
+              <option value="<%= cata.name %>"></option>
+            <% end %>
+          </datalist>
+
+          <%= f.hidden_field :post_type, value: "text" %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+        <%=f.submit "Submit Post", class: 'btn-block bg-light'%>
+      <%end%>
+    </div>
   </div>
-  <%=f.submit%>
-<%end%>
+</div>
 
-<!-- Dropdown Trigger -->
-<a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+<br>
 
-<!-- Dropdown Structure -->
-<ul id='dropdown1' class='dropdown-content'>
-  <li><a href="/posts">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>
-
-<!--
 <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="Content" id="content" type="text" class="validate">
-          <label for="content">Content</label>
+  <div class="col-md text-center">
+    <strong>OR</strong>
+  </div>
+</div>
+
+<br>
+
+<!-- NEW URL FORM -->
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="card-title">
+      <strong>Create a link post</strong>
+    </div>
+    <div class="card-text">
+      <%= form_for @post do |f|%>
+        <div class="form-group">
+          <%= f.text_field :title, placeholder: "Title", class: 'form-control', required: true%>
+        </div>
+        <div class="form-group">
+          <%= f.text_field :link, placeholder: "URL", class: 'form-control', required: true%>
         </div>
 
-        <div class="input-field col s6">
-          <input placeholder="Title" id="title" type="text" class="validate">
-          <label for="title">Title</label>
-        </div>
+        <%= f.text_field :category, placeholder:"Category", class: 'form-control mb-3', list: 'cata-list' %>
+          <datalist id="cata-list">
+            <% Category.all.each do |cata| %>
+              <option value="<%= cata.id %>"></option>
+            <% end %>
+          </datalist>
 
-      </div>
-
-
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="post_type" type="text" class="validate">
-          <label for="post_type">Text or URL?</label>
-        </div>
-
-        <div class="input-field col s6">
-          <input id="link" type="text" class="validate">
-          <label for="link">Link</label>
-        </div>
-
-      </div>
-
-      <div class="input-field col s12">
-          <select>
-
-            <%= @categories.each do |cat| %>
-              <option value="" disabled selected>Choose your option</option>
-              <option value="<%= cat.id%>"><%=cat.name%></option>
-            <%end%>
-          </select>
-
-          <label>Choose Category</label>
-        </div>
-
-    </form>
-  </div> -->
+          <%= f.hidden_field :post_type, value: "url" %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+        <%=f.submit "Submit Post", class: 'btn-block bg-light'%>
+      <%end%>
+    </div>
+  </div>
+</div>

@@ -4,26 +4,42 @@
 <% if @user == current_user %>
   <h4>Birthday: <%=@user.birth_date%></h4>
   <h4>Email <%=@user.email%></h4>
-  <%= link_to "Edit Account", edit_user_path(@user) %>
+  <%= button_to "Edit Account", edit_user_path(@user), method: 'get' %>
 <% end %>
 
+<%= button_to "Posts", user_path(@user), params: {show_type: "posts"}, method: 'get' %>
+<%= button_to "Market Posts", user_path(@user), params: {show_type: "market"}, method: 'get' %>
+<%= button_to "Likes", user_path(@user), params: {show_type: "likes"}, method: 'get' %>
+<%= button_to "Comments", user_path(@user), params: {show_type: "comments"}, method: 'get' %>
+
+<% if @type == "posts" %>
+  <h5>POSTS</h5>
+  <% @posts.reverse.each do |post| %>
+    <%=link_to post.title, post_path(post)%> <%= post.post_time %><br>
+    <%=link_to post.category.name, category_path(post.category)%>
+    <br><br>
+  <%end%>
+<% end %>
+
+<% if @type == "market" %>
+  <h5>SELLING</h5>
+  <% @market_posts.each do |post| %>
+    <%= render file: 'posts/show', locals: {post: @post = post} %>
+    <br><br>
+  <%end%>
+<% end %>
+
+<% if @type == "likes" %>
 <h5>LIKES</h5>
-<% @user.likes.each do |like| %>
-  <%= link_to like.post.title, post_path(like.post) %><br>
+  <% @user.likes.each do |like| %>
+    <%= link_to like.post.title, post_path(like.post) %><br>
+  <% end %>
 <% end %>
 
-
-<h5>POSTS</h5>
-<% @posts.each do |post| %>
-  <%=link_to post.title, post_path(post)%><br>
-  <%=link_to post.category.name, category_path(post.category)%>
-  <br><br>
-<%end%>
-
-<br><br>
-
-<h5>COMMENTS</h5>
-<% @comments.each do |comment| %>
-  <%=link_to comment.post.title, post_path(comment.post)%><br>
-  <%= comment.content %><br><br>
-<%end%>
+<% if @type == "comments" %>
+  <h5>COMMENTS</h5>
+  <% @comments.each do |comment| %>
+    <%=link_to comment.post.title, post_path(comment.post)%><br>
+    <%= comment.content %><br><br>
+  <%end%>
+<% end %>

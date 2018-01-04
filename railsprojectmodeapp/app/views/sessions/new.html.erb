@@ -1,12 +1,17 @@
-<%= flash[:error] if flash[:error] %><br><br>
+<% if flash[:error] %><br>
+  <div class="alert alert-danger" role="alert">
+    <%= flash[:error] %>
+  </div>
+<% end %>
 
-<div class="btn">
+<%= User.all.sample.username %>
 
-  <%= User.all.sample.username %>
-
-  <%= form_tag sessions_path do %>
-  <%= text_field_tag :username, nil, placeholder: "Username", class: 'form-control' %>
-  <%= password_field_tag :password, nil, placeholder: "Password", class: 'form-control' %>
-  <%= submit_tag "Login", class: 'form-control bg-primary text-light' %>
-  <%end%>
-</div>
+<%= form_tag sessions_path do %>
+  <div class="row">
+    <div class="col-md">
+      <%= text_field_tag :username, nil, placeholder: "Username", class: 'form-control', required: true %>
+      <%= text_field_tag :password, nil, placeholder: "Password", class: 'form-control', required: true %>
+      <%= submit_tag "Login", class: 'btn-block bg-primary text-light' %>
+    </div>
+  </div>
+<%end%>
