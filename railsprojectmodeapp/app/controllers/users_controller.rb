@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       redirect_to user_path(@user)
     else
       flash[:error] = @user.errors.full_messages
-      redirect_to new_user_path
+      redirect_to(request.env['HTTP_REFERER'])
     end
   end
 
@@ -59,7 +59,9 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :password_confirmation, :email, :birth_date, :admin, :moderator)
+
+    params.require(:user).permit(:username, :password, :password_confirmation, :email, :birth_date, :admin, :moderator, :image, :color)
+
   end
 
 end

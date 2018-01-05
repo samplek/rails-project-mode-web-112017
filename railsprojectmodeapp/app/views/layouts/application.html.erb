@@ -10,19 +10,44 @@
 
   <body>
 
-    <!-- CATEGORY NAVBAR -->
+    <!-- CATEGORY NAVBAR START -->
     <nav>
-      <div class="nav-wrapper grey">
+      <div class="nav-wrapper bg-light py-1">
         <div class="left">
-          <% Category.all.each do |cate| %>
-          <strong style="padding: 0px 5px 0px 5px; font-size:10px;"><%= link_to cate.name, category_path(cate) %></strong>
+          <%= link_to "Home", root_path, class: 'top-small'%>
+
+          <!-- MY CATEGORIES -->
+          <% if logged_in? %>
+            <%= link_to "My categories", '#' ,class: 'dropdown-toggle top-small', id: 'dropdownMenuButton', data: {toggle: 'dropdown'}, aria: {:'aria-haspopup' => true, :'aria-expanded' => false } %>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%if current_user.categories.length > 0%>
+                  <% current_user.categories.each do |cat| %>
+                    <a class="dropdown-item top-small" href="<%=category_path(cat)%>"><%= cat.name%></a>
+                  <%end%>
+                <%else%>
+                  <a class="dropdown-item" href="#">[You Have No Liked Categories]</a>
+                <%end%>
+              </div>
+          <%end%>
+
+          <!-- CATEGORIES LIST -->
+          <% if logged_in? %>
+            <% signedin_categories.each do |category| %>
+              <span class="top-small"><%= link_to category.name, category_path(category) %></span>
+              <% end %>
+          <% else %>
+            <% guest_categories.each do |category| %>
+              <span class="top-small"><%= link_to category.name, category_path(category) %></span>
+            <% end %>
           <% end %>
         </div>
       </div>
     </nav>
+    <!-- CATEGORY NAVBAR END -->
 
     <nav class="navbar navbar-light bg-primary mb-4">
       <%= link_to "HOME", root_path, class: 'btn bg-primary text-light'%>
+
       <% if logged_in? && current_user.admin == true %>
         <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
         <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
@@ -34,112 +59,102 @@
         <%= link_to "NEW POST", new_post_path, class: 'btn bg-primary text-light' %>
       <%else %>
         <%= link_to "SIGN UP", new_user_path, class: 'btn bg-primary text-light'%>
-
       <%end%>
     </nav>
 
 
-    <nav class="navbar navbar-light bg-primary mb-4">
-      <%  if logged_in? %>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          My Categories
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <%if current_user.categories.length > 0%>
-              <% current_user.categories.each do |cat| %>
-                <a class="dropdown-item" href="<%=category_path(cat)%>"><%= cat.name%></a>
-              <%end%>
-            <%else%>
-              <a class="dropdown-item" href="#">[You Have No Liked Categories]</a>
-            <%end%>
+
+    <div class="container-fluid">
+
+      <% if flash[:error] %>
+        <% flash[:error].each do |error| %>
+        <div class="row alert-danger border mb-1" role="alert">
+          <div class="col">
+            <%= error %>
           </div>
         </div>
+        <% end %>
+        <br><br>
+      <% end %>
 
 
-      <%end%>
-
-    </nav>
+      <div class="row mb-4">
 
 
 
-    <div class="container">
-      <div class="row">
-
-        <!-- MAIN PAGE BODY -->
+        <!-- MAIN PAGE BODY START -->
         <div class="col-md-9">
             <%= yield %>
         </div>
 
         <!-- SIDE BAR BODY -->
-        <div class="col-md-3 border">
+        <div class="col-md-3 px-3">
+          <div class="border px-3">
 
           <!-- USER INFO OR LOGIN -->
-          <% if logged_in? %>
-            <%= render 'users/small_show', locals: {user: @user = current_user} %>
-          <% else %>
-            <div class="row border bg-light py-3">
-              <div class="col">
-                <%= render template: 'sessions/new' %>
-              </div>
-            </div>
-          <% end %>
-
-          <!-- CATEGORY DESCRIPTION -->
-          <!-- CATEGORY PAGE -->
-          <% Category.all.each do |category| %>
-            <% if current_page?(category_path(category)) %>
-              <h4><%=category.name%></h4>
+          <div class="row">
+            <div class="col py-3">
 
               <% if logged_in? %>
-                <% if !category.user_categories.any? {|user_category| user_category.user == current_user } %>
-                  <%= button_to "Like", {controller: "user_categories", action: "create", category_id: category.id, user_id: current_user.id} %>
-                <% else %>
-                  <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: category.id, user_id: current_user.id}, method: 'delete' %>
-                  <% end %>
-                <% end %>
-
-              <h5>About This Category</h5>
-              <p><%=category.description%></p>
-            <% end %>
-          <% end %>
-
-          <!-- POST PAGE -->
-          <% Post.all.each do |post| %>
-            <% if current_page?(post_path(post)) %>
-
-            <!-- POST INFO -->
-            <div class="row border">
-              <div class="col">
-                <%=post.title %><br>
-                <%=post.post_time %><br>
-
-              </div>
-            </div>
-
-            <!-- POST CATEGORY INFO -->
-            <h4><%=post.category.name%></h4>
-
-            <% if logged_in? %>
-              <% if !post.category.user_categories.any? {|user_category| user_category.user == current_user } %>
-                <%= button_to "Like", {controller: "user_categories", action: "create", category_id: post.category.id, user_id: current_user.id} %>
+                <%= image_tag "#{current_user.image_link}", class: 'img-fluid', alt: '' %>
+                <%= render 'users/small_show', locals: {user: @user = current_user} %>
               <% else %>
-                <%= button_to "Unlike", {controller: "user_categories", action: "destroy", category_id: post.category.id, user_id: current_user.id}, method: 'delete' %>
-                <% end %>
+                <div class="row text-center">
+                  <div class="col py-3">
+                    <%= render template: 'sessions/new', locals: {user: @user = make_user} %>
+                  </div>
+                </div>
               <% end %>
 
-            <h5>About This Category</h5>
-            <p><%=post.category.description %></p>
+            </div>
+          </div>
+
+
+          <!-- CATEGORY DESCRIPTION -->
+
+            <!-- CATEGORY PAGE -->
+            <% Category.all.each do |category| %>
+              <% if current_page?(category_path(category)) %>
+                <div class="row border border-left-0 border-right-0 border-bottom-0 py-3 mb-3">
+                  <div class="col">
+                    <%= render 'categories/small_show', locals: {category: @category = category} %>
+                  </div>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
+
+
+
+            <!-- POST PAGE -->
+            <% Post.all.each do |post| %>
+              <% if current_page?(post_path(post)) %>
+
+
+              <!-- POST INFO -->
+              <div class="row border border-left-0 border-right-0 py-3">
+                <div class="col">
+                  <%= render 'posts/small_show', locals: {post: @post = post} %>
+                </div>
+              </div>
+
+              <!-- POST CATEGORY INFO -->
+              <div class="row border border-left-0 border-right-0 border-top-0 border-bottom-0 py-3 mb-3">
+                <div class="col">
+                  <%= render 'categories/small_show', locals: {category: @category = post.category} %>
+                </div>
+              </div>
+              <% end %>
+            <% end %>
 
 
         </div>
+        </div>
       </div>
     </div>
+    <!-- MAIN PAGE BODY END -->
 
     <!-- FOOTER -->
-    <nav class="navbar navbar-light bg-primary">
+    <nav class="navbar navbar-light bg-primary navbar-fixed-bottom">
 
         <%= link_to "ANALYTICS", analytics_path, class: 'btn bg-primary text-light'%>
 

@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20180104225006) do
     t.string "username"
     t.string "password_digest"
     t.string "email"
+    t.string "image", default: "default"
+    t.string "color", default: "blue"
     t.datetime "birth_date"
     t.boolean "admin", default: false
     t.boolean "moderator", default: false

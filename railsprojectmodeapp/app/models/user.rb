@@ -18,7 +18,6 @@ class User < ApplicationRecord
     end
   end
 
-
   def posts_count
     self.posts.count
   end
@@ -38,6 +37,31 @@ class User < ApplicationRecord
       "Member for 1 day"
     else
       "Member for #{join_date.floor} days"
+    end
+  end
+
+  def total_score
+    self.likes.count
+  end
+
+  def uniq_score
+    self.likes.map do |like|
+      like.user
+    end.uniq.count
+  end
+
+  def image_link
+    case self.image
+    when "default"
+      "default.png"
+    when "alligator"
+      "alligator/#{self.color}.png"
+    when "anteater"
+      "anteater/#{self.color}.png"
+    when "axolotl"
+      "axolotl/#{self.color}.png"
+    when "armadillo"
+      "armadillo/#{self.color}.png"
     end
   end
 
