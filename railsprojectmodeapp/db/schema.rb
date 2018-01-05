@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104153609) do
+ActiveRecord::Schema.define(version: 20180104225006) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 20180104153609) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "mod_categories", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_mod_categories_on_category_id"
+    t.index ["user_id"], name: "index_mod_categories_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "content"
     t.string "post_type"
@@ -65,6 +74,8 @@ ActiveRecord::Schema.define(version: 20180104153609) do
     t.string "username"
     t.string "password_digest"
     t.string "email"
+    t.string "image", default: "default"
+    t.string "color", default: "blue"
     t.datetime "birth_date"
     t.boolean "admin", default: false
     t.boolean "moderator", default: false

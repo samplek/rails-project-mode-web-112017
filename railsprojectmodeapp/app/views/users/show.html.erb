@@ -1,5 +1,21 @@
 
-<h1>Hello <%=@user.username%></h1>
+<h1><%=@user.username%></h1>
+  <% if @user.admin == true%>
+     <h3>admin</h3>
+  <%elsif @user.moderator == true%>
+      <h3>mod of:
+      <% @user.mod_categories.each do |mod|%>
+        <%= link_to mod.category.name, category_path(mod.category.id)%>
+      <%end%>
+      </h3>
+  <%end%>
+
+  <!-- BUTTON TO EDIT A USER -->
+
+  <% if current_user.admin == true  %>
+    <%= button_to "Change Mod Status", edit_user_path(@user), method: 'get' %>
+  <%end%>
+
 
 <% if @user == current_user %>
   <h4>Birthday: <%=@user.birth_date.strftime("%b %e, %Y")%></h4>

@@ -1,0 +1,9 @@
+<%= form_for @mod_categories do |f|%>
+  <%= f.text_field :category, placeholder:"Category", id: 'moo', class: 'form-control mb-3', list: 'cata-list' %>
+    <datalist id="cata-list">
+      <% Category.all.each do |cata| %>
+        <option value="<%= cata.name %>"></option>
+      <% end %>
+    </datalist>
+  <%=f.submit%>
+<%end%>

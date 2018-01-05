@@ -1,0 +1,33 @@
+
+<% if flash[:error] %>
+  <% flash[:error].each do |error| %>
+    <%= error %><br>
+  <% end %>
+<% end %>
+
+<!-- NEW TEXT FORM -->
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">
+      <strong>Create a new category</strong>
+    </div>
+    <div class="card-text">
+      <%= form_for @category do |f|%>
+        <div class="form-group">
+          <%= f.text_field :name, placeholder: "Name", class: 'form-control', required: true%>
+        </div>
+        <%= f.text_area :description, placeholder: "Description", rows: 7, class: 'form-control mb-3'%>
+
+        <%= f.text_field :market, placeholder:"Marketplace?", id: 'market', class: 'form-control mb-3', list: 'cata-list' %>
+          <datalist id="cata-list">
+              <option value="true"></option>
+              <option value="false"></option>
+          </datalist>
+
+        <%=f.submit "Submit Post", class: 'btn-block bg-light'%>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<br>

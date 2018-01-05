@@ -1,9 +1,7 @@
-
-    <% if @user == current_user %>
-    <h1>Hello <%=@user.username%></h1>
-    <h4>Birthday: <%=@user.birth_date.strftime("%b %e, %Y")%></h4>
-    <h4>Email: <%=@user.email%></h4>
-    <%= link_to "Go to Profile", user_path(@user) %>
-    <% end %>
-
-<br><br><br><br><br>
+<% if @user == current_user %>
+  <h5><%= link_to @user.username, user_path(@user) %></h5>
+  <%= "total score: #{@user.total_score}" %><br>
+  <%= "unique score: #{@user.uniq_score}" %><br>
+  <%= link_to "Go to Profile", user_path(@user) %> |
+  <%= link_to "Log out", logout_path, method: 'delete' %>
+<% end %>

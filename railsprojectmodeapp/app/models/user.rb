@@ -6,16 +6,17 @@ class User < ApplicationRecord
   has_many :posts
   has_many :user_categories
   has_many :categories, through: :user_categories
+  has_many :mod_categories
+  # has_many :categories, through: :mod_categories
 
   validates :username, :email, presence: true, uniqueness: true
-  validates :password, presence: true
+  # validates :password, presence: true
 
   def liked_categories
     Post.all.select do |post|
       self.categories.include?(post.category)
     end
   end
-
 
   def posts_count
     self.posts.count
@@ -36,6 +37,31 @@ class User < ApplicationRecord
       "Member for 1 day"
     else
       "Member for #{join_date.floor} days"
+    end
+  end
+
+  def total_score
+    self.likes.count
+  end
+
+  def uniq_score
+    self.likes.map do |like|
+      like.user
+    end.uniq.count
+  end
+
+  def image_link
+    case self.image
+    when "default"
+      "default.png"
+    when "alligator"
+      "alligator/#{self.color}.png"
+    when "anteater"
+      "anteater/#{self.color}.png"
+    when "axolotl"
+      "axolotl/#{self.color}.png"
+    when "armadillo"
+      "armadillo/#{self.color}.png"
     end
   end
 
