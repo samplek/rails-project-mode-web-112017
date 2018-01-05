@@ -52,7 +52,7 @@
     <%= link_to "Delete", comment_path(comm), method: 'delete' %>
 
     <br><br>
-  <% elsif current_user.admin == true || current_user.mod_categories.any? {|x| x.category_id == @post.category_id} %>
+  <% elsif logged_in? && current_user.admin == true || logged_in? && current_user.mod_categories.any? {|x| x.category_id == @post.category_id} %>
     <%= link_to "Delete", comment_path(comm), method: 'delete' %>
     <br><br>
 

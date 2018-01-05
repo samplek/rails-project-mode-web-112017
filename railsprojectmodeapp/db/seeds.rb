@@ -1,7 +1,4 @@
 
-
-
-
 15.times do
   user = User.create(
     username: Faker::Name.name,
@@ -26,12 +23,19 @@ categories = []
   categories << Faker::Name.title.split(" ")[0]
 end
 
-def make
-  [true,false].sample
+
+categories.uniq[0..9].each do |category|
+  a = true
+
+  Category.create(
+    name: "#{category}#{" Marketplace" if a}",
+    market: a,
+    description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote * 5
+  )
 end
 
-categories.uniq.each do |category|
-  a = make
+categories.uniq[10..19].each do |category|
+  a = false
   Category.create(
     name: "#{category}#{" Marketplace" if a}",
     market: a,

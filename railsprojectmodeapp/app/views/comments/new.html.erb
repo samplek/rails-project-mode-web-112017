@@ -1,9 +1,9 @@
-Create Comment <br>
+
 
 <%= form_tag comments_path do  %>
-  <%= text_area_tag 'comment[content]' %>
+  <%= text_area_tag 'comment[content]', nil, class: 'form-control', rows: 5 %>
   <%= hidden_field_tag 'comment[post_id]', @post.id %>
   <%= hidden_field_tag 'comment[user_id]', current_user.id %>
 
-  <%= submit_tag "Comment"%>
+  <%= submit_tag "Add Comment", class: 'btn-block bg-light form-control mb-5 mt-3'%>
 <% end %>

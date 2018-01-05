@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+
     <title>Railsprojectmodeapp</title>
     <%= csrf_meta_tags %>
 
@@ -14,7 +16,6 @@
     <nav>
       <div class="nav-wrapper bg-light py-1">
         <div class="left">
-          <%= link_to "Home", root_path, class: 'top-small'%>
 
           <!-- MY CATEGORIES -->
           <% if logged_in? %>
@@ -40,8 +41,12 @@
               <span class="top-small"><%= link_to category.name, category_path(category) %></span>
             <% end %>
           <% end %>
+          <%= link_to "See All Categories", categories_path, class: "top-small"%>
         </div>
+
       </div>
+
+
     </nav>
     <!-- CATEGORY NAVBAR END -->
 

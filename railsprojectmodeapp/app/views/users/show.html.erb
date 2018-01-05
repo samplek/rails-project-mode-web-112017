@@ -1,18 +1,21 @@
+<div class="row">
+  <div class="col-md-9 offset-2 text-center">
 
-<h1><%=@user.username%></h1>
-  <% if @user.admin == true%>
-     <h3>admin</h3>
-  <%elsif @user.moderator == true%>
-      <h3>mod of:
-      <% @user.moderated_categories.each do |mod|%>
-        <%= link_to mod.category.name, category_path(mod.category.id)%>
-      <%end%>
-      </h3>
-  <%end%>
+  <h1><%=@user.username%></h1>
+    <% if @user.admin == true%>
+       <h3>admin</h3>
+    <%elsif @user.moderator == true%>
+        <h3>mod of:
+        <% @user.moderated_categories.each do |mod|%>
+          <%= link_to mod.category.name, category_path(mod.category.id)%>
+        <%end%>
+        </h3>
+    <%end%>
+
 
   <!-- BUTTON TO EDIT A USER -->
 
-  <% if current_user.admin == true && !current_page?(user_path(current_user)) %>
+  <% if logged_in? && current_user.admin == true && !current_page?(user_path(current_user)) %>
     <%= button_to "Change Mod Status", edit_user_path(@user), method: 'get' %>
   <%end%>
 
@@ -20,14 +23,30 @@
 <% if @user == current_user %>
   <h4>Birthday: <%=@user.birth_date.strftime("%b %e, %Y")%></h4>
   <h4>Email: <%=@user.email%></h4>
-  <%= button_to "Edit Account", edit_user_path(@user), method: 'get' %>
-  <%= button_to "My Analytics", analytic_path, method: 'get' %>
 <% end %>
+<br>
+<div class="row">
+    <div class="col-md-1.5">
+    <%= button_to "Posts", user_path(@user), params: {show_type: "posts"}, method: 'get', class: 'btn bg-white border ml-3' %>
+    </div>
 
-<%= button_to "Posts", user_path(@user), params: {show_type: "posts"}, method: 'get' %>
-<%= button_to "Market Posts", user_path(@user), params: {show_type: "market"}, method: 'get' %>
-<%= button_to "Likes", user_path(@user), params: {show_type: "likes"}, method: 'get' %>
-<%= button_to "Comments", user_path(@user), params: {show_type: "comments"}, method: 'get' %>
+    <div class="col-md-1.5">
+    <%= button_to "Market Posts", user_path(@user), params: {show_type: "market"}, method: 'get', class: 'btn bg-white border ml-3' %>
+    </div>
+
+    <div class="col-md-1.5">
+    <%= button_to "Likes", user_path(@user), params: {show_type: "likes"}, method: 'get', class: 'btn bg-white border ml-3' %>
+    </div>
+
+    <div class="col-md-1.5">
+    <%= button_to "Comments", user_path(@user), params: {show_type: "comments"}, method: 'get', class: 'btn bg-white border ml-3' %>
+    </div>
+
+    <% if @user == current_user %>
+      <%= button_to "Edit Account", edit_user_path(@user), method: 'get', class: 'btn bg-white border ml-3' %>
+      <%= button_to "My Analytics", analytic_path, method: 'get', class: 'btn bg-white border ml-3' %>
+    <%end%>
+</div>
 
 <% if @type == "posts" %>
   <h5>POSTS</h5>
@@ -60,3 +79,5 @@
     <%= comment.content %><br><br>
   <%end%>
 <% end %>
+</div>
+</div>

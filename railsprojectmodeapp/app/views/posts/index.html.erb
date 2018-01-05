@@ -1,6 +1,11 @@
-<%= button_to 'Top Posts', posts_path, method: 'get' %>
-<%= button_to 'Top Market', posts_path, method: 'get', params: {type: 'market'} %>
-
+<div class="row">
+  <div class="col-md-1.5">
+    <%= button_to 'Top Posts', posts_path, method: 'get', class: 'btn bg-white border ml-3' %>
+  </div>
+    <div class="col-md-1">
+    <%= button_to 'Top Market', posts_path, method: 'get', params: {type: 'market'}, class: 'btn bg-white border' %>
+  </div>
+</div>
 <% if !@type %>
 <div class="row">
   <% Category.all.select{|x| !x.market}.sample(4).each do |cate| %>
@@ -40,18 +45,18 @@
 <!-- MARKET POSTS -->
 <% if @type == 'market' %>
     <% Category.market_categories.sample(5).each do |cate| %>
-    <div class="border">
-    <h1><%= cate.name %></h1>
-    <div class="row">
+    <div >
+    <h1 class="ml-1"><%= link_to cate.name, category_path(cate) %></h1>
+    <div class="row ml-1">
       <% @posts.each do |post| %>
-        <div class="col-md-3">
-          <%= post.title%><br>
+        <div class="col-md-3 border">
+          <%= link_to post.title, post_path(post)%><br>
           <%= post.summary%>
         </div>
         <br><br>
       <% end %>
     </div>
-
+<br>
   </div>
 
 
