@@ -1,0 +1,25 @@
+<h5><%= @category.name %></h5>
+
+<!-- SUB/UNSUB BUTTON -->
+<% if logged_in? %>
+  <% if !@category.user_categories.any? {|user_category| user_category.user == current_user } %>
+
+    <%=
+    button_to "Subscribe",
+    {controller: "user_categories", action: "create", category_id: @category.id, user_id: current_user.id},
+    class: 'btn-block btn-sm bg-light mb-2'
+    %>
+
+  <% else %>
+
+    <%=
+    button_to "Unsubscribe",
+    {controller: "user_categories", action: "destroy", category_id: @category.id, user_id: current_user.id}, method: 'delete',
+    class: 'btn-block btn-sm bg-light mb-2'
+    %>
+
+  <% end %>
+<% end %>
+
+<h6><%= "About #{@category.name}" %></h6>
+<p><%= @category.description %></p>

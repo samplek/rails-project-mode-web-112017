@@ -1,17 +1,17 @@
-<% if flash[:error] %><br>
-  <div class="alert alert-danger" role="alert">
-    <%= flash[:error] %>
-  </div>
-<% end %>
-
 <%= User.all.sample.username %>
-
 <%= form_tag sessions_path do %>
-  <div class="row">
-    <div class="col-md">
-      <%= text_field_tag :username, nil, placeholder: "Username", class: 'form-control', required: true %>
-      <%= password_field_tag :password, nil, placeholder: "Password", class: 'form-control', required: true %>
-      <%= submit_tag "Login", class: 'btn-block bg-primary text-light' %>
+  <%= text_field_tag :username, nil, placeholder: "Username", class: 'form-control', required: true %>
+  <%= password_field_tag :password, nil, placeholder: "Password", class: 'form-control mb-3', required: true %>
+  <%= submit_tag "Login", class: 'btn-block bg-primary text-light' %>
+<%end%>
+
+<%= link_to "Create a account", new_user_path, class: 'text-center', data: {toggle: 'modal', target: '#create-modal'} %>
+  <div class="modal fade" id="create-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <%= render template: 'users/new' %>
+        </div>
+      </div>
     </div>
   </div>
-<%end%>
