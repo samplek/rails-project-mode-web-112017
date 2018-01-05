@@ -24,8 +24,6 @@
 <%= link_to @post.user.username, user_path(@post.user)%>
   <% if @post.user.admin == true%>
     | admin
-    <%elsif @post.user.moderator == true%>
-    | mod
     <%end%>
 <br>
 
@@ -51,9 +49,11 @@
   <% elsif current_user.admin == true %>
     <%= link_to "Delete", comment_path(comm), method: 'delete' %>
     <br><br>
+
   <%elsif current_user.mod_categories.each {|x| x.category_id == @post.category_id }%>
     <%= link_to "Delete", comment_path(comm), method: 'delete' %>
     <br><br>
+
   <% end %>
 
 <% end %>

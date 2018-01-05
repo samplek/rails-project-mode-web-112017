@@ -10,7 +10,7 @@
       </h3>
   <%end%>
 
-  <% if current_user.admin == true %>
+  <% if current_user.admin == true  %>
     <%= button_to "Edit User's Account", edit_user_path(@user), method: 'get' %>
   <%end%>
 
