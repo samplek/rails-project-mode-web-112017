@@ -28,7 +28,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    # byebug
     #will show only account info
     @user = User.find(params[:id])
     if params[:show_type]

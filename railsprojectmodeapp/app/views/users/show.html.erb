@@ -4,7 +4,7 @@
      <h3>admin</h3>
   <%elsif @user.moderator == true%>
       <h3>mod of:
-      <% @user.mod_categories.each do |mod|%>
+      <% @user.moderated_categories.each do |mod|%>
         <%= link_to mod.category.name, category_path(mod.category.id)%>
       <%end%>
       </h3>

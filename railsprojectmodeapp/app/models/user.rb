@@ -65,4 +65,17 @@ class User < ApplicationRecord
     end
   end
 
+  def moderated_categories
+    if self.moderator == true
+      self.mod_categories
+    end
+  end
+
+  def is_moderating(cat)
+    self.moderated_categories.any? do |x|
+        x.category_id == cat.id
+    end
+  end
+
+
 end
