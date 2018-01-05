@@ -1,7 +1,7 @@
 <% if @user == current_user %>
-  <h5><%=@user.username%></h5>
+  <h5><%= link_to @user.username, user_path(@user) %></h5>
   <%= "total score: #{@user.total_score}" %><br>
   <%= "unique score: #{@user.uniq_score}" %><br>
   <%= link_to "Go to Profile", user_path(@user) %> |
-  <%= link_to "Log out", logout_path %>
+  <%= link_to "Log out", logout_path, method: 'delete' %>
 <% end %>

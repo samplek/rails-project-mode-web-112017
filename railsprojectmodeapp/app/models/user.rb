@@ -48,4 +48,19 @@ class User < ApplicationRecord
     end.uniq.count
   end
 
+  def image_link
+    case self.image
+    when "default"
+      "default.png"
+    when "alligator"
+      "alligator/#{self.color}.png"
+    when "anteater"
+      "anteater/#{self.color}.png"
+    when "axolotl"
+      "axolotl/#{self.color}.png"
+    when "armadillo"
+      "armadillo/#{self.color}.png"
+    end
+  end
+
 end
