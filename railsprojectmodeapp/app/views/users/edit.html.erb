@@ -1,8 +1,6 @@
 <% if current_user.admin == true %>
   <h2>Edit User Account</h2>
   <%= form_for @user do |f|%>
-  <%=f.password_field :password, placeholder: "Password"%><br>
-  <%=f.password_field :password_confirmation, placeholder: "Confirm Password"%><br>
     <%=f.text_field :moderator%><br>
     <%=f.submit%>
   <%end %>

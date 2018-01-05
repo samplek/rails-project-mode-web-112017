@@ -2,6 +2,12 @@
 <h1><%=@user.username%></h1>
   <% if @user.admin == true%>
      <h3>admin</h3>
+  <%elsif @user.moderator == true%>
+      <h3>mod of:
+      <% @user.mod_categories.each do |mod|%>
+        <%= link_to mod.category.name, category_path(mod.category.id)%>
+      <%end%>
+      </h3>
   <%end%>
 
   <% if current_user.admin == true %>
