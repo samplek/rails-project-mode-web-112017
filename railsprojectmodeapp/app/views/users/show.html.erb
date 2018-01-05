@@ -10,8 +10,10 @@
       </h3>
   <%end%>
 
+  <!-- BUTTON TO EDIT A USER -->
+
   <% if current_user.admin == true  %>
-    <%= button_to "Edit User's Account", edit_user_path(@user), method: 'get' %>
+    <%= button_to "Change Mod Status", edit_user_path(@user), method: 'get' %>
   <%end%>
 
 
