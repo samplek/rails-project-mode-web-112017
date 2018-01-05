@@ -7,6 +7,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :image, default: "default"
       t.string :color, default: "blue"
       t.datetime :birth_date
+      t.boolean :admin, :default => false
+      t.boolean :moderator, :default => false
 
       t.timestamps
     end
