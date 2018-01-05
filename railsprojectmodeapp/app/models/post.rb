@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   has_many :likes
   has_many :comments
 
-  validates :title,:category, presence: true
+  validates :title, :content, :category, presence: true
 
   def post_time
     if self.updated_at > self.created_at
@@ -42,8 +42,5 @@ class Post < ApplicationRecord
     self.comments.count
   end
 
-  def like_comments
-
-  end
 
 end

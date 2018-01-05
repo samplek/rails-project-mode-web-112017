@@ -1,10 +1,13 @@
 class Category < ApplicationRecord
-  has_many :posts
-  has_many :user_categories
-  has_many :users, through: :user_categories
+  has_many :posts, dependent: :delete_all
+  has_many :user_categories, dependent: :delete_all
+  has_many :users, through: :user_categories, dependent: :delete_all
 
-  has_many :mod_categories
-  has_many :categories, through: :mod_categories
+  has_many :mod_categories, dependent: :delete_all
+
+  validates :name, :description, :market, presence: true
+  validates :name, uniqueness: true
+
 
 
   def page_counter

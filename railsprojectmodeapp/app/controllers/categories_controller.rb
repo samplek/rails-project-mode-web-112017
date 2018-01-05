@@ -37,7 +37,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find_by(params[:category_id])
+    @category = Category.find(params[:id])
     @category.destroy
     redirect_to(request.env['HTTP_REFERER'])
   end
