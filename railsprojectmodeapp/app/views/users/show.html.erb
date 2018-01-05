@@ -12,7 +12,7 @@
 
   <!-- BUTTON TO EDIT A USER -->
 
-  <% if current_user.admin == true  %>
+  <% if current_user.admin == true && !current_page?(user_path(current_user)) %>
     <%= button_to "Change Mod Status", edit_user_path(@user), method: 'get' %>
   <%end%>
 

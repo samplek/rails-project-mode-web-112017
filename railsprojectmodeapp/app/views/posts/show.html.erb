@@ -35,19 +35,24 @@
 <% end %>
 
 <% @post.comments.reverse.each do |comm| %>
-  <strong><%= link_to comm.user.username, user_path(comm.user) %></strong> <%= comm.created_at %><br>
+
+  <strong><%= link_to comm.user.username, user_path(comm.user) %></strong>
+
+  <%if comm.user.mod_categories.any? {|x| x.category_id == @post.category_id }%> | moderator |
+  <%elsif comm.user.admin == true%>
+    | admin |
+  <%end%>
+
+  <%= comm.created_at %><br>
   <%= comm.content %>
   <br><br>
 
   <% if comm.user == current_user %>
     <%= link_to "Edit", edit_comment_path(comm) %>
     <%= link_to "Delete", comment_path(comm), method: 'delete' %>
-    <br><br>
-  <% elsif current_user.admin == true %>
-    <%= link_to "Delete", comment_path(comm), method: 'delete' %>
-    <br><br>
 
-  <%elsif current_user.mod_categories.each {|x| x.category_id == @post.category_id }%>
+    <br><br>
+  <% elsif current_user.admin == true || current_user.mod_categories.any? {|x| x.category_id == @post.category_id} %>
     <%= link_to "Delete", comment_path(comm), method: 'delete' %>
     <br><br>
 

@@ -1,15 +1,17 @@
 
 <% if current_user.admin == true %>
   <h2>Change mod status</h2>
+
   <%= form_for @user do |f|%>
 
-  <%= radio_button_tag(:moderator, "true") %>
-  <%= label_tag(:moderator, "Mod") %>
-  <%= radio_button_tag(:moderator, "false") %>
-  <%= label_tag(:moderator, "Regular User") %>
+  <%= f.radio_button(:moderator, true) %>
+  <%= f.label(:moderator, "Moderator") %>
+  <%= f.radio_button(:moderator, false) %>
+  <%= f.label(:moderator, "Regular User") %>
 
     <%=f.submit%>
   <%end %>
+
 <%else%>
 
 <h2>Edit Your Account</h2>
@@ -29,4 +31,5 @@
 
   <%=f.submit%>
 
+<%end%>
 <%end%>
