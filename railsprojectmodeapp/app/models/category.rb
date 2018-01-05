@@ -5,7 +5,7 @@ class Category < ApplicationRecord
 
   has_many :mod_categories, dependent: :delete_all
 
-  validates :name, :description, :market, presence: true
+  validates :name, :description, presence: true
   validates :name, uniqueness: true
 
 
