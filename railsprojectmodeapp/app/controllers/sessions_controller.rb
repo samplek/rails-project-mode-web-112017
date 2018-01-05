@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to(request.env['HTTP_REFERER'])
     else
-      flash[:error] = "Username and passwowrd do not match"
+      flash[:error] = "Username and password do not match"
       redirect_to(request.env['HTTP_REFERER'])
     end
 

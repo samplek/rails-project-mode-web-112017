@@ -6,9 +6,11 @@ class User < ApplicationRecord
   has_many :posts
   has_many :user_categories
   has_many :categories, through: :user_categories
+  has_many :mod_categories
+  # has_many :categories, through: :mod_categories
 
   validates :username, :email, presence: true, uniqueness: true
-  validates :password, presence: true
+  # validates :password, presence: true
 
   def liked_categories
     Post.all.select do |post|

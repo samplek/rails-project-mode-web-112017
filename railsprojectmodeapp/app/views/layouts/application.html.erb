@@ -47,11 +47,18 @@
 
     <nav class="navbar navbar-light bg-primary mb-4">
       <%= link_to "HOME", root_path, class: 'btn bg-primary text-light'%>
-      <% if logged_in? %>
+
+      <% if logged_in? && current_user.admin == true %>
+        <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
+        <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
+        <%= link_to "NEW POST", new_post_path, class: 'btn bg-primary text-light' %>
+        <%= link_to "NEW CATEGORY", new_category_path, class: 'btn bg-primary text-light' %>
+      <% elsif logged_in? %>
+        <%= link_to "MY PROFILE", user_path(current_user), class: 'btn bg-primary text-light'%>
+        <%= link_to "LOG OUT", logout_path, method: :delete, class: 'btn bg-primary text-light'%>
         <%= link_to "NEW POST", new_post_path, class: 'btn bg-primary text-light' %>
       <%else %>
         <%= link_to "SIGN UP", new_user_path, class: 'btn bg-primary text-light'%>
-
       <%end%>
     </nav>
 
@@ -117,9 +124,11 @@
             <% end %>
 
 
+
             <!-- POST PAGE -->
             <% Post.all.each do |post| %>
               <% if current_page?(post_path(post)) %>
+
 
               <!-- POST INFO -->
               <div class="row border border-left-0 border-right-0 py-3">

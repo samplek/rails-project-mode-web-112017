@@ -1,0 +1,5 @@
+<% if current_user.moderator == true %>
+  <h1>You are now a mod of this category!</h1>
+<%else%>
+  <h1><%= flash[:error]%></h1>
+<%end%>
